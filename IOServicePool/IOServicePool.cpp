@@ -4,6 +4,8 @@
 #include <Windows.h>
 #endif
 
+using namespace AsioWrapper;
+
 struct IOServicePool::io_worker
 {
 	boost::asio::io_service  ios;

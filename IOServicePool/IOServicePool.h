@@ -16,44 +16,47 @@
 	#define IOSERVICEPOOL_API
 #endif
 
-class IOSERVICEPOOL_API IOServicePool : public boost::noncopyable
+namespace AsioWrapper
 {
-public:
-	enum ServiceModel
+	class IOSERVICEPOOL_API IOServicePool : public boost::noncopyable
 	{
-		Single = 0,
-		Multi
-	};
+	public:
+		enum ServiceModel
+		{
+			Single = 0,
+			Multi
+		};
 
-public:
+	public:
 
-	IOServicePool(ServiceModel In_Model);
+		IOServicePool(ServiceModel In_Model);
 
-	~IOServicePool();
+		~IOServicePool();
 
-	void Run(uint32_t In_ThreadCnt = std::thread::hardware_concurrency()) noexcept;
+		void Run(uint32_t In_ThreadCnt = std::thread::hardware_concurrency()) noexcept;
 
-	//Blocking
-	void Stop() noexcept;
+		//Blocking
+		void Stop() noexcept;
 
-	const uint32_t& GetThreadCnt() noexcept;
+		const uint32_t& GetThreadCnt() noexcept;
 
-	const ServiceModel& GetServiceModel() noexcept;
+		const ServiceModel& GetServiceModel() noexcept;
 
-	operator boost::asio::io_service& () noexcept;
+		operator boost::asio::io_service& () noexcept;
 
-	boost::asio::io_service& GetIOService(uint32_t In_idx) noexcept;
+		boost::asio::io_service& GetIOService(uint32_t In_idx) noexcept;
 
-private:
-	ServiceModel m_Model;
-	uint32_t m_ThreadCnt, m_NextIO;
+	private:
+		ServiceModel m_Model;
+		uint32_t m_ThreadCnt, m_NextIO;
 
-	struct io_worker;
-	io_worker *m_IOWorkers;
+		struct io_worker;
+		io_worker *m_IOWorkers;
 
 #pragma warning(push)
 #pragma warning( disable: 4251 )
-	std::vector<std::thread *> m_Threads;
+		std::vector<std::thread *> m_Threads;
 #pragma warning( pop )
-};
+	};
+}
 

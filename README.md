@@ -1,6 +1,10 @@
 # IOServicePool
-Boost Asio IOService Pool base on Windows
+- Boost Asio IOService Pool base on Windows
 
-Requirement:
-1.Boost 1.68
-2.MSVC 2017 Community
+#Requirement:
+- Boost 1.68
+- MSVC 2017 Community
+
+#Environment Variables
+- BOOST_INCLUDE : boost header files folder path
+- BOOST_LIB : boost library files folder path
